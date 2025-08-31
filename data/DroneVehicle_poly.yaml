@@ -1,0 +1,24 @@
+
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+
+# path: /data/yolov5_obb/dataset/DroneVehicle   # dataset root dir
+# train: ir/train/images   # train images (relative to 'path') 
+# val: ir/test/images   # val images (relative to 'path') 
+# test: ir/test/images  # test images (optional)
+
+
+train_rgb: /DroneVehicle/rgb/train/images
+train_ir:  /DroneVehicle/ir/train/images
+test_rgb: /DroneVehicle/rgb/test/images
+test_ir: /DroneVehicle/ir/test/images
+val_rgb: /DroneVehicle/rgb/val/images
+val_ir: /DroneVehicle/ir/val/images
+
+# Classes
+# nc: 6  # number of classes
+# names: ['car','truck','bus','feright_car','train','van'] # class names
+nc: 5  # number of classes
+names: ['car','truck','bus','feright_car','van'] # class names
+
+
