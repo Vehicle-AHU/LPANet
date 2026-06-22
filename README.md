@@ -16,7 +16,7 @@ Existing multimodal UAV object detection methods often overlook the impact of se
 
 
 <p align="center">
-  <img width="100%" src="[https://github.com/Vehicle-AHU/LPANet/blob/main/figures/first_image.jpg" alt="firstIMG"/>
+  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/first_image.jpg" alt="firstIMG"/>
 </p> 
 
 ## Environment Setting 
@@ -38,7 +38,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --nproc_per_node
 Experimental results of our method and other detection algorithms on DroneVehicle object detection datasets.
 
 <p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/result_dronevehicle.png" alt="result_1"/>
+  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/result_dronvehicle.png" alt="result_1"/>
 </p> 
 
 Comparative experimental results of oriented object detection with other algorithms on the VEDAI dataset.
@@ -52,7 +52,7 @@ Comparative experimental results of oriented object detection with other algorit
 Comparison of speed and accuracy on the DroneVehicle.
 
 <p align="center">
-  <img width="100%" src=""https://github.com/Vehicle-AHU/LPANet/blob/main/figures/fig-5.png" alt="fps"/>
+  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/fig-5.png" alt="fps_image"/>
 </p> 
 
 Visualization of detection results on the DroneVehicle dataset, with different color boxes representing different categories.
