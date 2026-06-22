@@ -16,7 +16,7 @@ Existing multimodal UAV object detection methods often overlook the impact of se
 
 
 <p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/first_image.jpg" alt="firstIMG"/>
+  <img width="50%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/first_image.jpg" alt="firstIMG"/>
 </p> 
 
 ## Environment Setting 
@@ -26,10 +26,12 @@ Configure the environment according to the content of the requirements.txt file.
 ## Training
 
 ```bibtex
-#If you pre-training CM3AE using a single GPU, please run.
-CUDA_VISIBLE_DEVICES=0 python main.py
-#If you pre-training CM3AE using multiple GPUs, please run.
-CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --nproc_per_node=4 main.py
+#Training
+CUDA_VISIBLE_DEVICES=0 python train.py
+#Test
+python valtest.py --save-json --name 'obb_demo' --weight '/runs/train/exp/weights/best.pt'
+python tools/TestJson2VocClassTxt.py --json_path 'runs/val/obb_demo/best_obb_predictions.json' --save_path 'runs/val/obb_demo/obb_predictions_Txt'
+python DOTA_devkit-master/dota_evaluation_task1.py 
 ```
 
 
