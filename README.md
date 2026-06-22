@@ -6,7 +6,7 @@ Wentao Wu, Xiao Wang, Chenglong Li, Bo Jiang, Jin Tang, Bin Luo, Qi Liu [[
 
 ## News 
 
-* [05-July-2025] LPANet is accepted by TIP
+* [02-Jun-2026] LPANet is accepted by TIP
 
 
 
