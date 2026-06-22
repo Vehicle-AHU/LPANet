@@ -1,6 +1,6 @@
-# Large Language Model Guided Progressive Feature Alignment for Multimodal UAV Object Detection (LPANet)
+# LPANet
 
-**CM3AE: A Unified RGB Frame and Event-Voxel/-Frame Pre-training Framework**, 
+**Large Language Model Guided Progressive Feature Alignment for Multimodal UAV Object Detection**, 
 Wentao Wu, Chenglong Li*, Xiao Wang, Bin Luo[[arXiv](https://arxiv.org/pdf/2503.06948),[IEEE](https://ieeexplore.ieee.org/abstract/document/11568942)] 
 
 
