@@ -25,6 +25,8 @@ Configure the environment according to the content of the requirements.txt file.
 
 ## Training
 
+DOTA_devkit-master: [Download](https://pan.baidu.com/s/1IJ3_-cgXo3Esvyge4OWHJA?pwd=drn5)
+
 ```bibtex
 #Training
 CUDA_VISIBLE_DEVICES=0 python train.py
