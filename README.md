@@ -56,7 +56,7 @@ Comparative experimental results of oriented object detection with other algorit
 Comparison of speed and accuracy on the DroneVehicle.
 
 <p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/fig-5.png" alt="fps_image"/>
+  <img width="50%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/fig-5.png" alt="fps_image"/>
 </p> 
 
 Visualization of detection results on the DroneVehicle dataset, with different color boxes representing different categories.
