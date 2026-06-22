@@ -1,7 +1,7 @@
 # Large Language Model Guided Progressive Feature Alignment for Multimodal UAV Object Detection (LPANet)
 
 **CM3AE: A Unified RGB Frame and Event-Voxel/-Frame Pre-training Framework**, 
-Wentao Wu, Xiao Wang, Chenglong Li, Bo Jiang, Jin Tang, Bin Luo, Qi Liu [[arXiv](https://arxiv.org/pdf/2503.06948)] 
+Wentao Wu, Chenglong Li*, Xiao Wang, Bin Luo[[arXiv](https://arxiv.org/pdf/2503.06948),[IEEE](https://ieeexplore.ieee.org/abstract/document/11568942)] 
 
 
 ## News 
@@ -38,13 +38,13 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --nproc_per_node
 Experimental results of our method and other detection algorithms on DroneVehicle object detection datasets.
 
 <p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/result_dronevehicle.png" alt="result"/>
+  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/result_dronevehicle.png" alt="result_1"/>
 </p> 
 
 Comparative experimental results of oriented object detection with other algorithms on the VEDAI dataset.
 
 <p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/result_vedai.png" alt="result"/>
+  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/result_vedai.png" alt="result_2"/>
 </p> 
 
 ## Visual Results 
@@ -52,7 +52,7 @@ Comparative experimental results of oriented object detection with other algorit
 Comparison of speed and accuracy on the DroneVehicle.
 
 <p align="center">
-  <img width="100%" src=""https://github.com/Vehicle-AHU/LPANet/blob/main/figures/fig-5.jpg" alt="fps"/>
+  <img width="100%" src=""https://github.com/Vehicle-AHU/LPANet/blob/main/figures/fig-5.png" alt="fps"/>
 </p> 
 
 Visualization of detection results on the DroneVehicle dataset, with different color boxes representing different categories.
