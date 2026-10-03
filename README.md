@@ -14,7 +14,7 @@ Wentao Wu, Chenglong Li*, Xiao Wang, Bin Luo
 </p>
 
 <p align="center">
-<img src="figures/first_image.jpg" width="75%">
+<img src="figures/first_image.jpg" width="50%">
 </p>
 
 ## News
@@ -100,12 +100,6 @@ weights/class_description_embedding_mpnet.pkl
 ```
 
 can be directly used.
-
-Generate embeddings:
-
-```bash
-python tools/classname2embedding.py
-```
 
 ---
 
