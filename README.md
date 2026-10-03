@@ -13,6 +13,14 @@ Wentao Wu, Chenglong Li*, Xiao Wang, Bin Luo
 <a href="https://ieeexplore.ieee.org/abstract/document/11568942">IEEE TIP</a>
 </p>
 
+<p align="center">
+<a href="figures/csig2026_poster_LPANet.pdf">
+<img src="figures/poster_preview.png" width="70%">
+</a>
+</p>
+
+---
+
 ## News
 
 - **[02-Jun-2026]** 🎉 LPANet has been accepted by **IEEE Transactions on Image Processing (TIP)**.
