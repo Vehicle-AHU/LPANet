@@ -1,91 +1,207 @@
 # LPANet
 
-**Large Language Model Guided Progressive Feature Alignment for Multimodal UAV Object Detection**, 
-Wentao Wu, Chenglong Li*, Xiao Wang, Bin Luo[[arXiv](https://arxiv.org/pdf/2503.06948),[IEEE](https://ieeexplore.ieee.org/abstract/document/11568942)] 
-
-
-## News 
-
-* [02-Jun-2026] LPANet is accepted by TIP
-
-
-
-
-## Abstract 
-Existing multimodal UAV object detection methods often overlook the impact of semantic gaps between modalities, which makes it difficult to achieve accurate semantic and spatial alignments and ultimately limits detection performance. To address this problem, we propose a Large Language Model (LLM) guided Progressive feature Alignment Network called LPANet, which leverages the semantic features extracted from a large language model to guide the progressive semantic and spatial alignment between modalities for multimodal UAV object detection. To employ the powerful semantic representation of LLM, we generate the fine-grained text descriptions of each object category by ChatGPT and then extract the semantic features using the large language model MPNet, providing high-level semantic priors to guide multimodal alignment. Based on the semantic features, we guide the semantic and spatial alignments in a progressive manner as follows. First, we design the Semantic Alignment Module (SAM) to pull the semantic features and multimodal visual features of each object closer, alleviating the semantic differences of objects between modalities. Second, we design the Explicit Spatial Alignment Module (ESM) by integrating the semantic relations into the estimation of feature-level offsets, alleviating the coarse spatial misalignment between modalities. Finally, we design the Implicit Spatial alignment Module (ISM), which leverages the cross-modal correlations to aggregate key features from neighboring regions to achieve implicit spatial alignment. Comprehensive experiments on two public multimodal UAV object detection datasets demonstrate that our approach outperforms state-of-the-art multimodal UAV object detectors.
-
+<h3 align="center">
+Large Language Model Guided Progressive Feature Alignment for Multimodal UAV Object Detection
+</h3>
 
 <p align="center">
-  <img width="50%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/first_image.jpg" alt="firstIMG"/>
-</p> 
+Wentao Wu, Chenglong Li*, Xiao Wang, Bin Luo
+</p>
 
-## Environment Setting 
+<p align="center">
+<a href="https://arxiv.org/pdf/2503.06948">📄 arXiv</a> |
+<a href="https://ieeexplore.ieee.org/abstract/document/11568942">IEEE TIP</a>
+</p>
 
-Configure the environment according to the content of the requirements.txt file.
+<p align="center">
+<img src="figures/first_image.jpg" width="75%">
+</p>
 
-## Training
+## News
 
-DOTA_devkit-master: [Download](https://pan.baidu.com/s/1IJ3_-cgXo3Esvyge4OWHJA?pwd=drn5)
+- **[02-Jun-2026]** 🎉 LPANet has been accepted by **IEEE Transactions on Image Processing (TIP)**.
 
-```bibtex
-#Training
-CUDA_VISIBLE_DEVICES=0 python train.py
-#Test
-python valtest.py --save-json --name 'obb_demo' --weight '/runs/train/exp/weights/best.pt'
-python tools/TestJson2VocClassTxt.py --json_path 'runs/val/obb_demo/best_obb_predictions.json' --save_path 'runs/val/obb_demo/obb_predictions_Txt'
-python DOTA_devkit-master/dota_evaluation_task1.py 
+---
+
+# Abstract
+
+Existing multimodal UAV object detection methods often overlook the semantic gap between modalities, making it difficult to achieve accurate semantic and spatial alignments.
+
+To address this problem, we propose **Large Language Model Guided Progressive Feature Alignment Network (LPANet)**, which leverages semantic knowledge extracted from large language models to guide progressive semantic and spatial alignment between modalities.
+
+Specifically, we first generate fine-grained category descriptions using ChatGPT and extract semantic representations using MPNet, providing high-level semantic priors for multimodal feature alignment.
+
+Based on these semantic priors, LPANet introduces three progressive alignment modules:
+
+- **Semantic Alignment Module (SAM)**
+- **Explicit Spatial Alignment Module (ESM)**
+- **Implicit Spatial Alignment Module (ISM)**
+
+Extensive experiments on DroneVehicle and VEDAI demonstrate that LPANet achieves superior performance compared with existing multimodal UAV object detection approaches.
+
+---
+
+# Installation
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
 ```
 
+Compile rotated NMS:
 
-## Experimental Results 
+```bash
+cd utils/nms_rotated
+python setup.py build_ext --inplace
+cd ../..
+```
 
-Experimental results of our method and other detection algorithms on DroneVehicle object detection datasets.
+---
 
-<p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/result_dronvehicle.png" alt="result_1"/>
-</p> 
+# Dataset Preparation
 
-Comparative experimental results of oriented object detection with other algorithms on the VEDAI dataset.
+## DroneVehicle Dataset
 
-<p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/result_vedai.png" alt="result_2"/>
-</p> 
+The expected structure:
 
-## Visual Results 
+```
+DroneVehicle
+├── rgb
+│   ├── train
+│   ├── val
+│   └── test
+└── ir
+    ├── train
+    ├── val
+    └── test
+```
 
-Comparison of speed and accuracy on the DroneVehicle.
+Modify:
 
-<p align="center">
-  <img width="50%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/fig-5.png" alt="fps_image"/>
-</p> 
+```
+data/DroneVehicle_poly.yaml
+```
 
-Visualization of detection results on the DroneVehicle dataset, with different color boxes representing different categories.
+and set:
 
-<p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/detection_result.jpg" alt="detection_result_visualization"/>
-</p> 
+```yaml
+path: /path/to/DroneVehicle
+```
 
-Visualization of similarity response maps between text descriptions of various categories and multimodal visual features.
+---
 
-<p align="center">
-  <img width="100%" src="https://github.com/Vehicle-AHU/LPANet/blob/main/figures/vt.jpg" alt="similarity_response_maps_visualization"/>
-</p> 
+# Semantic Embedding Preparation
 
-## Acknowledgement 
-[[CALNet](https://github.com/hexiao0275/CALNet-Dronevehicle)] 
+The released semantic embedding file:
 
-## Citation 
+```
+weights/class_description_embedding_mpnet.pkl
+```
 
-If you find this work helps your research, please cite the following paper and give us a star. 
+can be directly used.
+
+Generate embeddings:
+
+```bash
+python tools/classname2embedding.py
+```
+
+---
+
+# Training
+
+LPANet adopts a two-stage training strategy.
+
+## Stage 1
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python train.py \
+--stage 1 \
+--weights weights/yolov5l.pt \
+--data data/DroneVehicle_poly.yaml \
+--semantic-embeddings weights/class_description_embedding_mpnet.pkl \
+--epochs 50 \
+--batch-size 4 \
+--img 640
+```
+
+## Stage 2
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python train.py \
+--stage 2 \
+--weights runs/train/stage1/weights/best.pt \
+--data data/DroneVehicle_poly.yaml \
+--semantic-embeddings weights/class_description_embedding_mpnet.pkl \
+--epochs 50 \
+--batch-size 4 \
+--img 640
+```
+
+---
+
+# Evaluation
+
+Validation:
+
+```bash
+python valtest.py \
+--data data/DroneVehicle_poly.yaml \
+--weights runs/train/exp/weights/best.pt \
+--task val \
+--semantic-embeddings weights/class_description_embedding_mpnet.pkl \
+--save-json
+```
+
+Testing:
+
+```bash
+python valtest.py \
+--data data/DroneVehicle_poly.yaml \
+--weights runs/train/exp/weights/best.pt \
+--task test \
+--semantic-embeddings weights/class_description_embedding_mpnet.pkl \
+--save-json
+```
+
+---
+
+# Released Model and Results
+
+The pretrained model weights and test results are available at:
+
+https://pan.baidu.com/s/1IJ3_-cgXo3Esvyge4OWHJA?pwd=drn5
+
+---
+
+# Experimental Results
+
+## DroneVehicle
+
+<img src="figures/result_dronvehicle.png" width="100%">
+
+## VEDAI
+
+<img src="figures/result_vedai.png" width="100%">
+
+---
+
+# Visualization
+
+<img src="figures/detection_result.jpg" width="100%">
+
+<img src="figures/vt.jpg" width="100%">
+
+---
+
+# Citation
+
 ```bibtex
 @article{wu2026large,
   title={Large language model guided progressive feature alignment for multimodal UAV object detection},
   author={Wu, Wentao and Li, Chenglong and Wang, Xiao and Luo, Bin},
   journal={IEEE Transactions on Image Processing},
-  year={2026},
-  publisher={IEEE}
+  year={2026}
 }
 ```
-
-
-if you have any problems with this work, please leave an issue. 
