@@ -32,8 +32,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 import val  # for end-of-epoch mAP
 from models.experimental import attempt_load
-from models.yolo import Model, CrossAttention_rgbw, CrossAttention_irw
-from models.common import GPTcross
+from models.yolo import Model
 from utils.autoanchor import check_anchors
 from utils.autobatch import check_train_batch_size
 from utils.callbacks import Callbacks
@@ -112,56 +111,6 @@ def generate_masks(batch_size, box_list_rgb, img_width, img_height, num_classes,
         masks[img_index, clsid, y_min:y_max + 1, x_min:x_max + 1] = 1
 
     return masks
-
-def configure_paper_stage(model, stage):
-    """Configure LPANet's two-stage training protocol without changing inference.
-
-    Stage 1 follows the paper by training SAM and ISM only. The ESM path is
-    bypassed for this stage so randomly initialized deformable offsets do not
-    perturb the fixed baseline features. Stage 2 trains the complete network.
-
-    This function only changes ``requires_grad`` flags and a runtime training
-    switch. It does not add/remove parameters, so historical checkpoints remain
-    loadable.
-    """
-    if stage not in (1, 2):
-        raise ValueError(f'Unsupported training stage: {stage}. Expected 1 or 2.')
-
-    if stage == 2:
-        for param in model.parameters():
-            param.requires_grad = True
-        for module in model.modules():
-            if isinstance(module, CrossAttention_irw):
-                module.enable_deform_align = True
-        return
-
-    # Stage 1: freeze the full detector first, then enable only SAM + ISM.
-    for param in model.parameters():
-        param.requires_grad = False
-
-    for module in model.modules():
-        if isinstance(module, CrossAttention_rgbw):
-            for param in module.parameters():
-                param.requires_grad = True
-        elif isinstance(module, CrossAttention_irw):
-            # The text projection belongs to SAM; DeformAlignNet is ESM and
-            # remains frozen in Stage 1.
-            for param in module.linear_class_features.parameters():
-                param.requires_grad = True
-            module.enable_deform_align = False
-        elif isinstance(module, GPTcross):
-            for param in module.parameters():
-                param.requires_grad = True
-
-
-def set_frozen_batchnorm_eval(model):
-    """Keep running statistics fixed for frozen BatchNorm layers."""
-    for module in model.modules():
-        if isinstance(module, nn.BatchNorm2d):
-            params = list(module.parameters(recurse=False))
-            if params and not any(param.requires_grad for param in params):
-                module.eval()
-
 
 def train_rgb_ir(hyp,  # path/to/hyp.yaml or hyp dictionary
           opt,
@@ -253,16 +202,15 @@ def train_rgb_ir(hyp,  # path/to/hyp.yaml or hyp dictionary
     else:
         model = Model(cfg, ch=3, nc=nc, anchors=hyp.get('anchors')).to(device)  # create
 
-    # Two-stage protocol from the paper. This only changes training behavior;
-    # inference for historical/final checkpoints remains unchanged.
-    configure_paper_stage(model, opt.stage)
-
-    # Optional extra user-requested freezing is applied on top of the stage rule.
+    # LPANet uses the stage argument only to select the stage-specific learning rate.
+    # Both stages train the complete network; --weights only provides initialization.
     freeze = [f'model.{x}.' for x in (freeze if len(freeze) > 1 else range(freeze[0]))]
     for k, v in model.named_parameters():
         if any(x in k for x in freeze):
             LOGGER.info(f'freezing {k}')
             v.requires_grad = False
+        else:
+            v.requires_grad = True
 
     n_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     n_total = sum(p.numel() for p in model.parameters())
@@ -423,9 +371,6 @@ def train_rgb_ir(hyp,  # path/to/hyp.yaml or hyp dictionary
                 f'Starting training for {epochs} epochs...')
     for epoch in range(start_epoch, epochs):  # epoch ------------------------------------------------------------------
         model.train()
-        if opt.stage == 1:
-            set_frozen_batchnorm_eval(model)
-
         # Update image weights (optional, single-GPU only)
         if opt.image_weights:
             cw = model.class_weights.cpu().numpy() * (1 - maps) ** 2 / nc  # class weights
@@ -632,7 +577,7 @@ def parse_opt(known=False):
     parser.add_argument('--hyp', type=str, default=ROOT / 'data/hyps/obb/hyp.finetune_DroneVehicle.yaml', help='hyperparameters path')
     parser.add_argument('--semantic-embeddings', type=str, default=ROOT / 'weights/class_description_embedding_mpnet.pkl', help='class semantic embedding pickle')
     parser.add_argument('--stage', type=int, choices=(1, 2), default=2,
-                        help='paper training stage: 1=SAM+ISM only (lr 0.035), 2=full model (lr 0.02)')
+                        help='training stage: selects the stage-specific learning rate (stage 1=0.035, stage 2=0.02); both stages train all parameters')
     parser.add_argument('--lr0', type=float, default=None,
                         help='override paper stage learning rate (default: 0.035 for stage 1, 0.02 for stage 2)')
     parser.add_argument('--epochs', type=int, default=50)
