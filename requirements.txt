@@ -1,0 +1,23 @@
+# Core
+matplotlib>=3.2.2
+numpy>=1.18.5
+opencv-python>=4.5.4
+Pillow>=7.1.2
+PyYAML>=5.3.1
+requests>=2.23.0
+scipy>=1.4.1
+torch>=1.10.0
+torchvision>=0.11.0
+tqdm>=4.41.0
+
+# Evaluation / plotting
+pandas>=1.1.4
+seaborn>=0.11.0
+packaging>=20.0
+
+# Optional
+# tensorboard>=2.4.1
+# wandb
+# thop
+# sentence-transformers  # only needed by tools/classname2embedding.py
+# pycocotools>=2.0       # only needed for optional COCO-style bbox evaluation

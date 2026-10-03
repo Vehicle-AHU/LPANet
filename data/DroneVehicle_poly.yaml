@@ -1,0 +1,13 @@
+# DroneVehicle RGB-IR dataset configuration for LPANet.
+# Edit `path` to the dataset root on your machine.
+path: /path/to/DroneVehicle
+
+train_rgb: rgb/train/images
+train_ir:  ir/train/images
+val_rgb:   rgb/val/images
+val_ir:    ir/val/images
+test_rgb:  rgb/test/images
+test_ir:   ir/test/images
+
+nc: 5
+names: [car, truck, bus, freight_car, van]

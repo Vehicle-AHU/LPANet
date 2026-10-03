@@ -1,0 +1,7 @@
+{
+  "car": "For a car, it is relatively small in size, with a short and wide body. Its length is about 1.5 times its width, and it has no cargo compartment.",
+  "truck": "For a truck, the cab is relatively small, with a long and flat cargo box that is slightly shorter than that of a freight car.",
+  "bus": "For a bus, the body is continuously elongated in shape, with no partition between the driver compartment and the passenger area.",
+  "freight_car": "For a Freight Car, it has the largest overall volume and the greatest length among all vehicle types. Its top view often reveals distinctive container-like texture.",
+  "van": "For a van, the size is relatively small, larger than a car but smaller than a truck. Its length is about twice its width, and it features an integrated cargo area with the cab."
+}
