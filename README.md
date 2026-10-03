@@ -159,7 +159,16 @@ python valtest.py \
 --save-json
 ```
 
----
+## Final DOTA-style Evaluation
+
+The final oriented object detection results reported in the paper are evaluated using the **DOTA_devkit-master** evaluation script.
+
+The complete evaluation pipeline is:
+
+```bash
+python tools/TestJson2VocClassTxt.py --json_path 'runs/train/xxx/predictions.json' --save_path 'runs/train/xxx/obb_predictions_Txt'
+python DOTA_devkit-master/dota_evaluation_task1.py
+```
 
 # Released Model and Results
 
