@@ -189,6 +189,14 @@ https://pan.baidu.com/s/1IJ3_-cgXo3Esvyge4OWHJA?pwd=drn5
 
 ---
 
+# Acknowledgement
+
+We sincerely thank the following open-source project for providing valuable code and resources:
+
+- [CALNet](https://github.com/hexiao0275/CALNet-Dronevehicle)
+
+---
+
 # Citation
 
 ```bibtex
