@@ -13,10 +13,6 @@ Wentao Wu, Chenglong Li*, Xiao Wang, Bin Luo
 <a href="https://ieeexplore.ieee.org/abstract/document/11568942">IEEE TIP</a>
 </p>
 
-<p align="center">
-<img src="figures/first_image.jpg" width="50%">
-</p>
-
 ## News
 
 - **[02-Jun-2026]** 🎉 LPANet has been accepted by **IEEE Transactions on Image Processing (TIP)**.
@@ -38,6 +34,10 @@ Based on these semantic priors, LPANet introduces three progressive alignment mo
 - **Implicit Spatial Alignment Module (ISM)**
 
 Extensive experiments on DroneVehicle and VEDAI demonstrate that LPANet achieves superior performance compared with existing multimodal UAV object detection approaches.
+
+<p align="center">
+<img src="figures/first_image.jpg" width="50%">
+</p>
 
 ---
 
