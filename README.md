@@ -14,7 +14,7 @@ Wentao Wu, Chenglong Li*, Xiao Wang, Bin Luo
 </p>
 
 <p align="center">
-<a href="figures/csig2026_poster_LPANet.pdf">
+<a href="figures/csig2026_poster_LPANet.png">
 <img src="figures/poster_preview.png" width="70%">
 </a>
 </p>
